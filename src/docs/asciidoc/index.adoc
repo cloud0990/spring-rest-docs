@@ -1,0 +1,56 @@
+= Spring REST Docs
+
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+
+[[resources-get]]
+
+== GET
+
+- /api/user
+- /api/user/{username}
+
+TIP: /api/user
+
+==== HTTP Request
+include::{snippets}/user/3/http-request.adoc[]
+
+==== HTTP Response
+include::{snippets}/user/3/http-response.adoc[]
+
+
+
+TIP: GET: /api/user/{username}
+include::{snippets}/user-admin/3/http-request.adoc[]
+
+==== HTTP Request
+include::{snippets}/user-admin/3/http-response.adoc[]
+
+==== HTTP Response
+include::{snippets}/user-admin/3/http-response.adoc[]
+
+
+[[resources-post]]
+== POST
+- /api/signup
+- /api/authenticate
+
+TIP: /api/signup
+
+==== HTTP Request
+include::{snippets}/signup/1/http-request.adoc[]
+
+==== HTTP Response
+include::{snippets}/signup/1/http-response.adoc[]
+
+TIP: /api/authenticate
+
+==== HTTP Request
+include::{snippets}/authenticate/2/http-request.adoc[]
+
+==== HTTP Response
+include::{snippets}/authenticate/2/http-response.adoc[]
