@@ -22,9 +22,11 @@ import java.util.Map;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -58,12 +60,6 @@ public class UserControllerTest {
     @Test
     @DisplayName("회원가입 테스트")
     public void signup() throws Exception {
-
-        // MultiValueMap: 키의 중복이 허용됨 (Map 을 사용하고 싶을 때, 중복 키 값을 온전히 저장하고싶을 때, Map 보다 깔끔한 코딩을 원할 때... 사용)
-//        MultiValueMap<String, String> reqParams = new LinkedMultiValueMap<>();
-//        reqParams.add("username", keyword);
-//        reqParams.add("password", keyword);
-//        reqParams.add("nickname", keyword);
 
         this.mockMvc
                 .perform(
@@ -108,22 +104,20 @@ public class UserControllerTest {
                 .andReturn().getResponse().getHeader("Location");
     }
 
-//    @Test
-//    @DisplayName("접근 권한 테스트: ADMIN")
-//    public void userAdmin() throws Exception {
-//
-//        authenticate();
-//
-//        this.mockMvc
-//                .perform(get("/api/user/{username}", "admin").contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(header().string("content-type", "application/json"))
-////                .andExpect(jsonPath("$.authorities..['authorityName']").value(Arrays.asList("ROLE_ADMIN")))
-////                .andExpect(jsonPath("$.authorities..['authorityName']").value(in(Arrays.asList("ROLE_ADMIN", "ROLE_USER"))))
-//                .andExpect(jsonPath("$.authorities..['authorityName']").value(nameContains(Arrays.asList("ROLE_ADMIN", "ROLE_USER").toString())))
-//                .andDo(print())
-//                .andReturn().getResponse().getHeader("Location")
-//        ;
-//    }
+    @Test
+    @DisplayName("접근 권한 테스트: ADMIN")
+    public void userAdmin() throws Exception {
+
+        authenticate();
+
+        this.mockMvc
+                .perform(get("/api/user/{username}", "admin").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(header().string("content-type", "application/json"))
+//                .andExpect(jsonPath("$.authorities..['authorityName']").value(Arrays.asList("ROLE_ADMIN")))
+                .andDo(print())
+                .andReturn().getResponse().getHeader("Location")
+        ;
+    }
 
     public Map<String, String> getReqParams(String keyword) {
 
